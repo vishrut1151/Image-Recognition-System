@@ -2,6 +2,7 @@ from guizero import App, Box, Text, TextBox, Picture, PushButton
 from PIL import Image
 import tensorflow as tf
 import numpy as np
+import wikipedia as wiki
 
 
 model = tf.keras.applications.VGG16()
@@ -94,6 +95,9 @@ def update_picture():
     display_image.image = generate_display_picture(pic, DISPLAY_IMAGE_SIZE)
     prediction = identify_image(pic)
     print(prediction) 
+    article = wiki.page(prediction)
+    title.value = article.title
+    update_text_box(article.summary)
     
     
 IMAGE_SIZE = 224
